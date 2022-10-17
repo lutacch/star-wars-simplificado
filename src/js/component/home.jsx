@@ -1,26 +1,27 @@
-import React from "react";
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
+import React, { useEffect, useState } from "react";
 
-//create your first component
-const Home = () => {
-	return (
-		<div className="text-center">
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
-		</div>
-	);
+const ControlledInputForm = (props) => {
+  //     holds the value of the input
+  const [currentValue, setValue] = useState("");
+  return (
+    <div>
+      <h2>Your name is: {currentValue ? currentValue : "Not defined"}
+</h2>
+
+      {/* 
+       This is a controlled input because its value is in sync 
+       with the stated variable currentValue  
+     */}
+      <input
+        type="text"
+        onChange={(e) => setValue(e.target.value)}
+        value={currentValue}
+        placeholder="Please type your name"
+      />
+    
+</div>
+  );
 };
-
-export default Home;
+ControlledInputForm.propTypes = {};
+export default ControlledInputForm;
