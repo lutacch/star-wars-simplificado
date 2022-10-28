@@ -1,20 +1,43 @@
 import React, { useEffect, useState } from "react" ;
-import PokemonList from "/workspace/Pokemon/src/js/component/PokemonList.jsx"
-import {fetchApi} from "/workspace/Pokemon/src/js/component/fetchApi.jsx"
+import NavBar from "/workspace/star-wars-simplificado/src/js/component/NavBar.jsx";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import People from "/workspace/star-wars-simplificado/src/js/component/People.jsx";
+import Planets from "/workspace/star-wars-simplificado/src/js/component/Planets.jsx";
+
+
 
 
 const App = () => {
 
-    const [pokemon, setPokemon] = useState([]);
-    useEffect(()=>{
-      fetchApi().then((respuestaJson)=> {
-        setPokemon(respuestaJson.map(p=> p.name))
-      })  
-    },[])
+  const[people, setPeople] = useState([]);
+  const[planets, setPlanets] = useState([]);
+  const[loading, setLoading] = ([true]);
+
+  useEffect(()=>{
+    async function fetchPeople(){
+      let result = await fetch("https://www.swapi.tech/api/people");
+      let data = await result.json();
+      setPeople(data.results);
+        }
+    
+    async function fetchPlanets(){
+      let result = await fetch("https://www.swapi.tech/api/planets")
+      let data = await result.json();
+      setPlanets(data.results);
+    }
+
+    fetchPeople();
+    fetchPlanets();
+
+  },[])
 
   return (
     <div>
-      <PokemonList pokemon = {pokemon}/>
+      <Router>
+      <NavBar/>
+      <Planets planets ={planets}/>
+      <People data={people}/>
+      </Router>  
     </div>
 
   );
@@ -27,62 +50,13 @@ export default App;
 
 
 
-
-
-
-
 /* 
-
-import React, {useState} from "react";
-
-const Home = () => {
-
-  const [blogs, setBlogs]= useState([
-    {title:"my new website", body:"lorem...", author:"mario", id:1},
-    {title:"my hello", body:"lorem...", author:"luiggi", id:2},
-    {title:"my developer", body:"lorem...", author:"yoshu", id:3}
-  ]);
-
-  return (
-    <div>
-      {blogs.map((blog)=> (
-        <div className="blog" key={blog.id}>
-            <h2>{blog.title}</h2>
-            <p>Written by {blog.author}</p>
-
-        </div>
-        
-      ))}  
-    </div>
-
-  );
-}
-
-
-export default Home; */
-
-
-/* const Home = () => {
-
-  const [name, setName]= useState("mario");
-
-  const [age, setAge] = useState(23)
-
-  const handleClick = () => {
-    setName("luiggi");
-    setAge(30)
-  }
-
-
-  return (
-    <div>
-      <h2>Mario Bross</h2>
-      <p>{name} is {age} years old</p>
-      <button onClick={handleClick}>click me</button>
-    </div>
-
-  );
-} */
+    const [pokemon, setPokemon] = useState([]);
+    useEffect(()=>{
+      fetchApi().then((respuestaJson)=> {
+        setPokemon(respuestaJson.map(p=> p.name))
+      })  
+    },[]) */
 
 
 
@@ -100,28 +74,3 @@ export default Home; */
 
 
 
-
-/* 
-import React, { useEffect, useState } from "react";
-
-const ControlledInputForm = (props) => {
-
-  const [currentValue, setValue] = useState("");
-  return (
-    <div>
-      <h2>Your name is: {currentValue ? currentValue : "Not defined"}
-</h2>
-
-  
-      <input
-        type="text"
-        onChange={(e) => setValue(e.target.value)}
-        value={currentValue}
-        placeholder="Please type your name"
-      />
-    
-</div>
-  );
-};
-ControlledInputForm.propTypes = {};
-export default ControlledInputForm; */

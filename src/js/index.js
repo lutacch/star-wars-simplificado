@@ -6,7 +6,7 @@ import ReactDOM from "react-dom";
 import "../styles/index.css";
 
 //import your own components
-import App from "/workspace/Pokemon/src/js/component/App.jsx";
+import App from "/workspace/star-wars-simplificado/src/js/component/App.jsx";
 
 //render your react application
 ReactDOM.render(<App />, document.querySelector("#app"));
