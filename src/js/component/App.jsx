@@ -9,8 +9,8 @@ const App = () => {
     useEffect(()=>{
       fetchApi().then((respuestaJson)=> {
         setPokemon(respuestaJson.map(p=> p.name))
-      })
-    })
+      })  
+    },[])
 
   return (
     <div>
