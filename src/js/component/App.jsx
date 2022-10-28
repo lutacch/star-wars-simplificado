@@ -1,18 +1,27 @@
-import React from "react" ;
-import PokeApi from "/workspace/react-hello/src/js/component/PokeApi.jsx"
+import React, { useEffect, useState } from "react" ;
+import PokemonList from "/workspace/Pokemon/src/js/component/PokemonList.jsx"
+import {fetchApi} from "/workspace/Pokemon/src/js/component/fetchApi.jsx"
 
-const Home = () => {
+
+const App = () => {
+
+    const [pokemon, setPokemon] = useState([]);
+    useEffect(()=>{
+      fetchApi().then((respuestaJson)=> {
+        setPokemon(respuestaJson.map(p=> p.name))
+      })
+    })
 
   return (
     <div>
-      <h1><PokeApi/></h1>
+      <PokemonList pokemon = {pokemon}/>
     </div>
 
   );
 }
 
 
-export default Home;
+export default App;
 
 
 
